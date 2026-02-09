@@ -106,6 +106,12 @@ namespace GltfGenerator
 
         private Schema Deserialize(string fileName)
         {
+
+            if (fileName == null || fileName.Contains("../") || fileName.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
+            
             string schemaText = File.ReadAllText(Path.Combine(rootDirectory, fileName));
 
             JsonSerializerOptions options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
