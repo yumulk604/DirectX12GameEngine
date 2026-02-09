@@ -27,6 +27,10 @@ namespace DirectX12GameEngine.Graphics
 
         public static async Task<Image> LoadAsync(string filePath)
         {
+            if (filePath == null || filePath.Contains("../") || filePath.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
             using FileStream stream = File.OpenRead(filePath);
             return await LoadAsync(stream);
         }
